@@ -27,7 +27,7 @@ import { bySlug as getPostBySlug, likesStats as likePostStats, viewsStats as vie
 import { getAvatarUploadUrl } from './r2.router'
 import { countReplies } from './reply.router'
 import { getSettings, updateSettings } from './settings.router'
-import { spotifyRouter } from './spotify.router'
+import { neteaseRouter } from './netease.router'
 import { createTalk, deleteTalk, likesStats as likeTalkStats, listAllTalks, updateTalk, viewsStats as viewTalkStats } from './talk.router'
 import { getReplyPrefs, updateCommentReplyPrefs, updateReplyPrefs } from './unsubscribe.router'
 import { upload } from './upyun.router'
@@ -41,7 +41,7 @@ export const router = {
     github: githubStats,
     youtube: youtubeStats,
     wakatime: wakatimeStats,
-    spotify: spotifyRouter,
+    netease: neteaseRouter,
     posts: {
       views: viewPostStats,
       likes: likePostStats,

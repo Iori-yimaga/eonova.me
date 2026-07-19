@@ -34,6 +34,7 @@ export const env = createEnv({
     SPOTIFY_CLIENT_ID: z.string().min(1).optional(),
     SPOTIFY_CLIENT_SECRET: z.string().min(1).optional(),
     SPOTIFY_REFRESH_TOKEN: z.string().min(1).optional(),
+    NETEASE_COOKIE: z.string().min(1).optional(),
 
     GOOGLE_API_KEY: z.string().min(1).optional(),
     GITHUB_TOKEN: z.string().min(1).optional(),
