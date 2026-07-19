@@ -51,7 +51,9 @@ const SongSchema = z.object({
     name: z.string(),
     artist: z.string(),
     songUrl: z.string(),
+    audioUrl: z.string().nullable(),
     coverUrl: z.string().nullable(),
+    duration: z.number().nullable(),
     playCount: z.number(),
 })
 
@@ -60,6 +62,9 @@ const PlayingSchema = z.object({
     songUrl: z.string(),
     name: z.string(),
     artist: z.string(),
+    coverUrl: z.string().nullable(),
+    audioUrl: z.string().nullable(),
+    duration: z.number().nullable(),
     topSongs: z.array(SongSchema),
 })
 

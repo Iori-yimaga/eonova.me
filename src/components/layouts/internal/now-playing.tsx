@@ -1,14 +1,18 @@
 'use client'
 import type { UrlObject } from 'node:url'
 import Link from 'next/link'
+import { useState } from 'react'
 import { useNeteaseStats } from '~/hooks/queries/stat.query'
 import { Popover, PopoverContent, PopoverTrigger } from '../../base/popover'
+import AudioPlayer from '../../shared/audio-player'
 import ShinyText from '../../shared/shiny-text'
 
 function NowPlaying() {
   const { isSuccess, isLoading, isError, data } = useNeteaseStats()
+  const [playerOpen, setPlayerOpen] = useState(false)
 
   const isPlaying = isSuccess && data.isPlaying && data.songUrl
+  const hasAudio = isPlaying && data.audioUrl
 
   return (
     <div className="flex items-center gap-4">
@@ -28,54 +32,84 @@ function NowPlaying() {
       <div className="inline-flex w-full items-center justify-center gap-1 text-sm md:justify-start">
         {isPlaying
           ? (
-            <Popover>
-              <PopoverTrigger
-                openOnHover
-                delay={300}
-                closeDelay={200}
+            <div className="flex items-center gap-2">
+              {/* 点击展开/收起播放器 */}
+              <button
+                onClick={() => setPlayerOpen(prev => !prev)}
                 className="cursor-pointer rounded-md transition-colors hover:bg-foreground/5"
               >
-                <Link href={data.songUrl as unknown as UrlObject}>
-                  <ShinyText text={`${data.name} - ${data.artist}`} disabled speed={3} className="custom-class" />
-                </Link>
-              </PopoverTrigger>
-              {data.topSongs && data.topSongs.length > 1 && (
-                <PopoverContent side="top" align="start" sideOffset={8} className="w-80 p-0">
-                  <div className="px-3 py-2 text-xs font-medium text-muted-foreground border-b">
-                    最近常听 · Top {data.topSongs.length}
-                  </div>
-                  <div className="max-h-72 overflow-y-auto">
-                    {data.topSongs.map((song, index) => (
-                      <Link
-                        key={song.id}
-                        href={song.songUrl as unknown as UrlObject}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="flex items-center gap-3 px-3 py-2 transition-colors hover:bg-foreground/5"
-                      >
-                        <span className="w-5 text-center text-xs text-muted-foreground">
-                          {index + 1}
-                        </span>
-                        {song.coverUrl && (
-                          <img
-                            src={song.coverUrl}
-                            alt={song.name}
-                            className="h-8 w-8 rounded object-cover"
-                          />
-                        )}
-                        <div className="min-w-0 flex-1">
-                          <div className="truncate text-sm">{song.name}</div>
-                          <div className="truncate text-xs text-muted-foreground">{song.artist}</div>
+                <ShinyText text={`${data.name} - ${data.artist}`} disabled speed={3} className="custom-class" />
+              </button>
+
+              {/* 歌单 Popover */}
+              <Popover>
+                <PopoverTrigger
+                  openOnHover
+                  delay={300}
+                  closeDelay={200}
+                  className="cursor-pointer rounded-md px-1.5 py-0.5 text-xs text-muted-foreground transition-colors hover:bg-foreground/5"
+                >
+                  ▾
+                </PopoverTrigger>
+                {data.topSongs && data.topSongs.length > 1 && (
+                  <PopoverContent side="top" align="start" sideOffset={8} className="w-80 p-0">
+                    <div className="px-3 py-2 text-xs font-medium text-muted-foreground border-b">
+                      最近常听 · Top {data.topSongs.length}
+                    </div>
+                    <div className="max-h-72 overflow-y-auto">
+                      {data.topSongs.map((song, index) => (
+                        <div
+                          key={song.id}
+                          className="flex items-center gap-3 px-3 py-2 transition-colors hover:bg-foreground/5"
+                        >
+                          <span className="w-5 text-center text-xs text-muted-foreground">
+                            {index + 1}
+                          </span>
+                          {song.coverUrl && (
+                            <img
+                              src={song.coverUrl}
+                              alt={song.name}
+                              className="h-8 w-8 rounded object-cover"
+                            />
+                          )}
+                          <div className="min-w-0 flex-1">
+                            <div className="truncate text-sm">{song.name}</div>
+                            <div className="truncate text-xs text-muted-foreground">{song.artist}</div>
+                          </div>
+                          <span className="shrink-0 text-xs text-muted-foreground">
+                            {song.playCount}次
+                          </span>
                         </div>
-                        <span className="shrink-0 text-xs text-muted-foreground">
-                          {song.playCount}次
-                        </span>
-                      </Link>
-                    ))}
-                  </div>
-                </PopoverContent>
+                      ))}
+                    </div>
+                  </PopoverContent>
+                )}
+              </Popover>
+
+              {/* 内嵌播放器 */}
+              {playerOpen && hasAudio && (
+                <div className="absolute bottom-full left-0 mb-2 w-72">
+                  <AudioPlayer
+                    src={data.audioUrl!}
+                    coverUrl={data.coverUrl}
+                    name={data.name}
+                    artist={data.artist}
+                  />
+                </div>
               )}
-            </Popover>
+
+              {/* 无可播放 URL 时，点击直接跳转 */}
+              {!playerOpen && !hasAudio && (
+                <Link
+                  href={data.songUrl as unknown as UrlObject}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-xs text-muted-foreground/50 hover:text-muted-foreground"
+                >
+                  ↗
+                </Link>
+              )}
+            </div>
           )
           : (
             <ShinyText

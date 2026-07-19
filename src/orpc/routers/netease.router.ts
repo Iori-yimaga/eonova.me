@@ -90,10 +90,44 @@ const getStats = publicProcedure.output(NetEaseStatsOutputSchema).handler(async 
       name: song.name,
       artist: artists,
       songUrl: `https://music.163.com/#/song?id=${song.id}`,
+      audioUrl: null as string | null,
       coverUrl: song.al?.picUrl ?? null,
+      duration: song.dt ?? null,
       playCount: item.playCount,
     }
   })
+
+  // 批量获取可播放的音频 URL
+  const songIds = topSongs.map(s => s.id)
+  if (songIds.length > 0) {
+    try {
+      const idsParam = JSON.stringify(songIds)
+      const playerRes = await fetch('https://music.163.com/api/song/enhance/player/url', {
+        method: 'POST',
+        headers: HEADERS,
+        body: new URLSearchParams({
+          ids: idsParam,
+          br: '320000',
+        }),
+      })
+
+      if (playerRes.ok) {
+        const playerData = await playerRes.json()
+        const urlMap = new Map<number, { url: string | null, size: number }>()
+        for (const d of playerData.data ?? []) {
+          urlMap.set(d.id, { url: d.url, size: d.size })
+        }
+        for (const song of topSongs) {
+          const info = urlMap.get(song.id)
+          if (info?.url) {
+            song.audioUrl = info.url
+          }
+        }
+      }
+    } catch {
+      // 静默失败，audioUrl 保持 null，回退到跳转链接
+    }
+  }
 
   const firstSong = topSongs[0]
   if (!firstSong) {
@@ -105,6 +139,9 @@ const getStats = publicProcedure.output(NetEaseStatsOutputSchema).handler(async 
     songUrl: firstSong.songUrl,
     name: firstSong.name,
     artist: firstSong.artist,
+    coverUrl: firstSong.coverUrl,
+    audioUrl: firstSong.audioUrl,
+    duration: firstSong.duration,
     topSongs,
   }
 })
