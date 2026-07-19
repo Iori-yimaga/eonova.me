@@ -2,7 +2,7 @@ import Image from 'next/image'
 import { LINK_MUSIC } from '~/config/about-profiles'
 import IntroCard from './intro-card'
 
-interface IntroFourProps {}
+interface IntroFourProps { }
 
 const IntroFour: React.FC<IntroFourProps> = () => {
   return (
@@ -10,14 +10,14 @@ const IntroFour: React.FC<IntroFourProps> = () => {
       <IntroCard
         className="col-span-1 h-56 rounded-3xl text-white backdrop-blur-xs md:col-span-2 lg:col-span-4 lg:h-72"
         subheading="番剧"
-        title="Charlotte"
-        desc="友利奈绪"
+        title="中二病也要谈恋爱"
+        desc="小鸟游六花"
         isColor
       >
         <Image
           className="absolute top-0 left-0 z-[-1] h-full w-full"
-          src="/images/about/ylnx.jpg"
-          alt="友利奈绪"
+          src="/images/about/ylnx.png"
+          alt="小鸟游六花"
           width={400}
           height={200}
         />

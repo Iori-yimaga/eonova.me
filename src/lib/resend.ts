@@ -17,7 +17,7 @@ export function sendEmail(options: SendEmailOptions) {
   const resend = new Resend(env.RESEND_API_KEY)
 
   return resend.emails.send({
-    from: `Eonova <hi@eonova.me>`,
+    from: `慕乐 <noreply@iori-yimaga.site>`,
     to,
     subject,
     react,

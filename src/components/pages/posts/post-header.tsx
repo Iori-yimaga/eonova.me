@@ -48,15 +48,15 @@ function Header({ intro }: HeaderProps) {
         <div className="grid grid-cols-2 text-sm max-md:gap-4 md:grid-cols-4">
           <div className="space-y-1 md:mx-auto">
             <div className="text-muted-foreground">作者</div>
-            <Link href="https://github.com/eonova" className="flex items-center gap-2">
+            <Link href="https://github.com/Iori-yimaga" className="flex items-center gap-2">
               <BlurImage
                 src="/images/home/avatar.png"
                 className="rounded-full"
                 width={24}
                 height={24}
-                alt="Eonova"
+                alt="慕乐"
               />
-              Eonova
+              慕乐
             </Link>
           </div>
           <div className="space-y-1 md:mx-auto">

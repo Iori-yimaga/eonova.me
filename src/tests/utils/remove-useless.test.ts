@@ -9,7 +9,7 @@ describe('removeuseless', () => {
   })
 
   it('should remove links', () => {
-    const content = `[test](https://eonova.me)`
+    const content = `[test](https://iori-yimaga.site)`
     const res = extractPlainTextFromMarkdown(content).replace(/\n/g, '')
     expect(res).toBe('test')
   })

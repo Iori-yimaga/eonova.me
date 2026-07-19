@@ -2,7 +2,7 @@
 import type { ReactNode } from 'react'
 import { motion, useMotionValue, useSpring } from 'motion/react'
 import { useRef, useState } from 'react'
-import '~/styles/page/tilted.css'
+// tilted.css moved to globals.css to avoid preload warning
 
 const springValues = {
   damping: 30,

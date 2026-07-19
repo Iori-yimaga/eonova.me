@@ -138,7 +138,7 @@ export function CommandMenu() {
       title: '源代码',
       icon: <CodeIcon className="size-4" />,
       onSelect: () => {
-        openExternalLink('https://github.com/eonova/eonova.me')
+        openExternalLink('https://github.com/Iori-yimaga/mmblog')
       },
     },
   ]

@@ -4,7 +4,6 @@ import AboutMe from '~/components/pages/home/about-me'
 import GetInTouch from '~/components/pages/home/get-in-touch'
 import Hero from '~/components/pages/home/hero'
 import LatestNews from '~/components/pages/home/latest-news'
-import SelectedProjects from '~/components/pages/home/selected-projects'
 import JsonLd from '~/components/shared/json-ld'
 import { MY_NAME, SITE_DESCRIPTION, SITE_GITHUB_URL, SITE_INSTAGRAM_URL, SITE_NAME, SITE_X_URL, SITE_YOUTUBE_URL } from '~/config/constants'
 import { createMetadata } from '~/lib/metadata'
@@ -42,7 +41,6 @@ export default function Page() {
       <JsonLd json={jsonLd} />
       <Hero />
       <LatestNews />
-      <SelectedProjects />
       <AboutMe />
       <GetInTouch />
     </>

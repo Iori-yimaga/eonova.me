@@ -186,8 +186,8 @@ test.describe('Navigation', () => {
 
       // Check for user info in sidebar (use more specific selector)
       const sidebar = page.getByRole('dialog')
-      await expect(sidebar.getByText('Eonova')).toBeVisible()
-      await expect(sidebar.getByText('一个爱捣鼓的前端')).toBeVisible()
+      await expect(sidebar.getByText('慕乐')).toBeVisible()
+      await expect(sidebar.getByText('一名啥都爱折腾的冲浪者')).toBeVisible()
     })
 
     test('should show all navigation links in mobile sidebar', async ({ page }) => {

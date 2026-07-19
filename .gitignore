@@ -64,3 +64,8 @@ public/swe-worker-*.js
 
 # Action
 .lighthouseci/
+
+# Local proxy
+redis-proxy.mjs
+redis-proxy.log
+src/proxy.ts

@@ -1,7 +1,7 @@
 import { MoonIcon, SunIcon } from 'lucide-react'
 import { useTheme } from 'next-themes'
 import { Button } from '~/components/base'
-import '~/styles/page/theme-switcher.css'
+// theme-switcher.css moved to globals.css to avoid preload warning
 
 function ThemeSwitcher() {
   const { resolvedTheme, setTheme } = useTheme()

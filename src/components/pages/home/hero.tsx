@@ -86,7 +86,7 @@ function Hero() {
               {' '}
               <WriteLogo className="h-12 sm:h-16" />
               {' '}
-              ，一个爱捣鼓的前端
+              ，一个啥都爱折腾的冲浪者
             </div>
             <div className="flex gap-1">
               <motion.div
@@ -117,7 +117,7 @@ function Hero() {
               </div>
             </div>
           </h1>
-          <div className="text-muted-foreground text-sm">广东 • UTC/GMT +8</div>
+          <div className="text-muted-foreground text-sm">北京 • UTC/GMT +8</div>
         </motion.div>
         <motion.div
           className="relative mt-3 hidden size-28 md:block"
@@ -133,8 +133,8 @@ function Hero() {
         >
           <TiltedCard
             imageSrc="/images/home/avatar.png"
-            altText="Eonova"
-            captionText="Eonova"
+            altText="慕乐"
+            captionText="慕乐"
             rotateAmplitude={18}
             scaleOnHover={1.2}
             showMobileWarning={false}

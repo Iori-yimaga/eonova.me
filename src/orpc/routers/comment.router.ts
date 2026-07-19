@@ -119,7 +119,7 @@ export const createComment = protectedProcedure
         throw new ORPCError('NOT_FOUND', { message: 'Blog post not found' })
 
       contentTitle = post.title
-      contentUrl = `https://eonova.me/post/${slug}`
+      contentUrl = `https://iori-yimaga.site/post/${slug}`
     }
     else if (contentType === 'notes') {
       const note = getNoteBySlug(slug)
@@ -127,11 +127,11 @@ export const createComment = protectedProcedure
       if (!note)
         throw new ORPCError('NOT_FOUND', { message: 'Note post not found' })
       contentTitle = note.title
-      contentUrl = `https://eonova.me/note/${slug}`
+      contentUrl = `https://iori-yimaga.site/note/${slug}`
     }
     else {
       contentTitle = slug
-      contentUrl = 'https://eonova.me/talk'
+      contentUrl = 'https://iori-yimaga.site/talk'
     }
 
     const commenterName = user.name
@@ -219,7 +219,7 @@ export const createComment = protectedProcedure
               date: input.date,
               contentTitle,
               contentUrl,
-              unsubscribeUrl: `https://eonova.me/unsubscribe?token=${token}`,
+              unsubscribeUrl: `https://iori-yimaga.site/unsubscribe?token=${token}`,
             }),
           })
         }

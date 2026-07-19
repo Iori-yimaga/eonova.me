@@ -43,7 +43,7 @@ export const githubStats = publicProcedure.output(githubStatsOutputSchema).handl
 
   const { data: repo } = await octokit.request('GET /repos/{owner}/{repo}', {
     owner: GITHUB_USERNAME,
-    repo: 'eonova.me',
+    repo: 'mmblog',
   })
 
   return {

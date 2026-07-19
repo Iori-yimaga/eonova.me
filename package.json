@@ -10,7 +10,7 @@
     "node": ">=22"
   },
   "scripts": {
-    "dev": "pnpm with-env next dev --turbo -p 3000",
+    "dev": "pnpm with-env next dev --turbo -p 13000",
     "build": "pnpm with-env next build",
     "build:mdx": "content-collections build --config ./content.config.ts",
     "typegen": "next typegen",
@@ -178,6 +178,7 @@
     "drizzle-kit": "catalog:script",
     "eslint-plugin-react-hooks": "catalog:lint",
     "eslint-plugin-react-refresh": "catalog:lint",
+    "ioredis": "catalog:backend",
     "jsdom": "catalog:test",
     "lint-staged": "catalog:lint",
     "oxfmt": "catalog:lint",

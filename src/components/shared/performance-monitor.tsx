@@ -157,8 +157,19 @@ export function PerformanceMonitor() {
       }
 
       // 获取资源加载时间
+      // 排除 Next.js 开发模式下的 chunk 编译请求（首次编译必然慢，后续缓存很快）
       const resources = performance.getEntriesByType('resource') as PerformanceResourceTiming[]
-      const slowResources = resources.filter(resource => resource.duration > 1000)
+      const slowResources = resources.filter((resource) => {
+        if (resource.duration <= 1000)
+          return false
+        // 排除 Next.js 内部 chunk（开发模式 Turbopack 编译产物）
+        if (resource.name.includes('/_next/static/chunks/'))
+          return false
+        // 排除 Next.js API/RPC 路由（开发模式首次编译）
+        if (resource.name.includes('/rpc/') || resource.name.includes('/api/'))
+          return false
+        return true
+      })
 
       if (slowResources.length > 0) {
         console.warn('Slow resources detected:', slowResources)

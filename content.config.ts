@@ -10,6 +10,7 @@ const CATEGORIES = [
   { name: '技术', label: 'tech' },
   { name: '总结', label: 'summary' },
   { name: '设计', label: 'design' },
+  { name: '安全', label: 'ctf' },
 ]
 
 interface BaseDoc {

@@ -72,6 +72,8 @@ function MobileHeader() {
               alt="花流尘"
               width={80}
               height={45}
+              style={{ width: 'auto', height: 'auto' }}
+              loading="eager"
             />
             <Image
               className={theme === 'dark' ? 'hidden' : ''}
@@ -79,6 +81,8 @@ function MobileHeader() {
               alt="花流尘"
               width={80}
               height={45}
+              style={{ width: 'auto', height: 'auto' }}
+              loading="eager"
             />
           </Link>
           <div className="flex items-center gap-1">

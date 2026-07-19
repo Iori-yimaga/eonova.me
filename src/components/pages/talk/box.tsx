@@ -29,7 +29,7 @@ const TalkBox: React.FC<TalkBoxProps> = ({
   id,
   children,
   images = '/images/home/avatar.png',
-  name = 'Eonova',
+  name = '慕乐',
   time = new Date(),
   likes = 0,
   setTalkId,

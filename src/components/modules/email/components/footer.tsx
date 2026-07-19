@@ -7,13 +7,13 @@ function Footer() {
       <Section>
         <Row className="mt-4" align="left" width="auto">
           <Column className="pr-6 align-middle">
-            <Link href="https://x.com/030Eonova" className="text-xl text-black">
-              <Img src="https://eonova.me/images/email/x.png" alt="X" width={22} height={22} />
+            <Link href="https://x.com/Iori_yimaga" className="text-xl text-black">
+              <Img src="https://iori-yimaga.site/images/email/x.png" alt="X" width={22} height={22} />
             </Link>
           </Column>
           <Column className="align-middle">
-            <Link href="https://github.com/eonova/eonova.me" className="text-xl text-black">
-              <Img src="https://eonova.me/images/email/github.png" alt="GitHub" width={22} height={22} />
+            <Link href="https://github.com/Iori-yimaga/mmblog" className="text-xl text-black">
+              <Img src="https://iori-yimaga.site/images/email/github.png" alt="GitHub" width={22} height={22} />
             </Link>
           </Column>
         </Row>
@@ -23,7 +23,7 @@ function Footer() {
         {' '}
         {new Date().getFullYear()}
         {' '}
-        Eonova. All rights reserved.
+        慕乐. All rights reserved.
       </Text>
     </>
   )

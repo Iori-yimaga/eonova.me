@@ -6,7 +6,7 @@ import { usePostContext } from '~/contexts/post'
 import { useFormattedDate } from '~/hooks/use-formatted-date'
 
 function editURL(slug: string) {
-  return `https://github.com/eonova/eonova.me/blob/main/data/posts/${slug}.md?plain=1`
+  return `https://github.com/Iori-yimaga/mmblog/blob/main/data/posts/${slug}.md?plain=1`
 }
 
 function Footer() {

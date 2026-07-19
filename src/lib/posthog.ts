@@ -5,8 +5,9 @@ import { env } from '~/lib/env'
 let posthogInstance: PostHog | null = null
 
 export function getPostHogServer() {
-  if (!env.NEXT_PUBLIC_POSTHOG_KEY) {
-    throw new Error('POSTHOG_KEY is not set')
+  // Skip PostHog in development if using placeholder key
+  if (!env.NEXT_PUBLIC_POSTHOG_KEY || env.NEXT_PUBLIC_POSTHOG_KEY === 'phc_placeholder') {
+    return null
   }
 
   posthogInstance ??= new PostHog(env.NEXT_PUBLIC_POSTHOG_KEY, {

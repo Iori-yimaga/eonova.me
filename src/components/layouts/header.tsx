@@ -8,7 +8,7 @@ import Logo from '../shared/logo'
 import { CommandMenu } from './internal/command-menu'
 import ThemeSwitcher from './internal/theme-switcher'
 import Navbar from './navbar'
-import '~/styles/page/header.css'
+// header.css moved to globals.css to avoid preload warning
 
 interface HeaderProps {
   className?: string

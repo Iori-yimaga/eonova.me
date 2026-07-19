@@ -1,7 +1,5 @@
-import Image from 'next/image'
 import Link from 'next/link'
 import { memo } from 'react'
-import { SITE_GITHUB_URL } from '~/config/constants'
 
 import { FOOTER_LINKS } from '~/config/links'
 import NowPlaying from './internal/now-playing'
@@ -29,22 +27,11 @@ const Footer: React.FC = () => {
         <div>
           &copy;
           {' '}
-          {new Date().getFullYear() === 2025
-            ? new Date().getFullYear()
-            : `2025-${new Date().getFullYear()}`}
-          <Link href={SITE_GITHUB_URL} className="ml-1">
-            Eonova
-          </Link>
+          {`2021-${new Date().getFullYear()}`}
+          <span className="ml-1">
+            慕乐
+          </span>
         </div>
-        <Link href="https://www.upyun.com/?utm_source=lianmeng&utm_medium=referral">
-          <div className="flex items-center text-sm">
-            本网站由 &nbsp;
-            <Image src="/images/upyun-logo.png" width={50} height={12} alt="upyun logo" />
-            {' '}
-            &nbsp;
-            提供CDN 加速/云存储服务
-          </div>
-        </Link>
       </div>
     </footer>
   )

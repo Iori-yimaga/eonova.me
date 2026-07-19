@@ -1,26 +1,22 @@
-<h3 align="center"> eonova.me </h3>
-
-![Preview](./public//images/projects/eonova.me.png)
+<h3 align="center"> 慕乐の博客 </h3>
 
 <div align="center">
   <a href="./README_CN.md"> 🇨🇳 简体中文</a>
   |
-  <a href="https://eonova.me"> 👀 preview</a>
+  <a href="https://iori-yimaga.site"> 👀 preview</a>
 </div>
 
 ## 🎉 Introduction
 
-A personal blog and portfolio built with modern technology stack, integrating technical article display, open source project management, and rich interactive features.
+A personal blog and portfolio built with Next.js, integrating technical article display, notes, photo album, and rich interactive features.
 
 ## 🌌 Features
 
 -   **Content Management**: Blog posts, Notes, Projects, and Photo Album with MDX support.
 -   **Interactive Comments**: Nested replies, markdown support, emoji reactions, and email notifications.
--   **Media Experience**: Global music player, masonry photo gallery, and video support.
 -   **Social Features**: Guestbook, Friends links, and "Talk" (micro-blogging).
 -   **User System**: Authentication (GitHub/Google), Profile management, and Active sessions tracking.
--   **Admin Dashboard**: comprehensive management for content, comments, users, and more.
--   **AI Integration**: AI-powered summary for blog posts.
+-   **Admin Dashboard**: Comprehensive management for content, comments, users, and more.
 -   **Performance & SEO**: SSR/ISR, Sitemap, RSS feed, and PWA support.
 -   **Search**: Full-text search capability.
 
@@ -57,7 +53,7 @@ graph TD
 
 ### Vercel One-Click Deployment
 
-[![Deploy with Vercel](https://vercel.com/button)](<https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Feonova%2Feonova.me&env=SITE_URL,SITE_AUTHOR>)
+[![Deploy with Vercel](https://vercel.com/button)](<https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2FIori-yimaga%2Fmmblog&env=SITE_URL,SITE_AUTHOR>)
 
 ### Docker Compose Deployment
 

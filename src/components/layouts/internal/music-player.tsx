@@ -8,7 +8,7 @@ import MusicPlayerContainer from '../../modules/player/player-container'
 import PlayerControl from '../../modules/player/player-control'
 import Playlist from '../../modules/player/playlist'
 import PlaylistTile from '../../modules/player/playlist-title'
-import '~/styles/page/music-playing.css'
+// music-playing.css moved to globals.css to avoid preload warning
 
 interface Playlist {
   title: string

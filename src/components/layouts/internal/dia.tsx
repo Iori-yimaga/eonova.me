@@ -6,7 +6,7 @@ import { useEffect, useMemo, useRef, useState } from 'react'
 import { useSettings } from '~/hooks/queries/settings.query'
 import { useDia } from '~/hooks/use-dia'
 import { cn } from '~/utils/cn'
-import '~/styles/page/dia.css'
+// dia.css moved to globals.css to avoid preload warning
 
 interface DiaProps {
   className?: string

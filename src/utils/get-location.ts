@@ -1,28 +1,25 @@
-interface LocationResponse {
-  ip: string
-  city: string
-  region: string
+interface IpApiResponse {
+  status: string
   country: string
-  countryCode: string
-  latitude: number
-  longitude: number
-  timezone: string
-  asn: number
-  isp: string
+  regionName: string
+  city: string
 }
 
 export async function getLocation(ip: string): Promise<string | null> {
   try {
-    const response = await fetch(`https://api.eonova.me/ip/geo?ip=${ip}`)
+    const response = await fetch(`http://ip-api.com/json/${ip}?lang=zh-CN&fields=status,country,regionName,city`, {
+      next: { revalidate: 86400 },
+    })
     if (!response.ok)
       throw new Error('Failed to fetch location')
 
-    const data = (await response.json()) as LocationResponse
+    const data = (await response.json()) as IpApiResponse
 
-    const country = data.country
-    const region = data.region ? `, ${data.region}` : ''
+    if (data.status !== 'success')
+      return null
 
-    return `${country}${region}`
+    const parts = [data.country, data.regionName, data.city].filter(Boolean)
+    return parts.length > 0 ? parts.join(', ') : null
   }
   catch {
     return null

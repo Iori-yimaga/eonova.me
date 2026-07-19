@@ -2,7 +2,7 @@
 import { gsap } from 'gsap'
 import Image from 'next/image'
 import { useEffect, useRef } from 'react'
-import '~/styles/page/bounce.css'
+// bounce.css moved to globals.css to avoid preload warning
 
 interface BounceCardsProps {
   className?: string

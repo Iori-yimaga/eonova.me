@@ -2,7 +2,7 @@
 import { motion, useInView } from 'motion/react'
 import { useRef } from 'react'
 import { cn } from '~/utils'
-import '~/styles/page/quote.css'
+// quote.css moved to globals.css to avoid preload warning
 
 interface QuoteCardProps {
   className?: string

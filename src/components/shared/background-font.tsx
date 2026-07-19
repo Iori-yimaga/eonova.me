@@ -1,5 +1,5 @@
 import { cn } from '~/utils/cn'
-import '~/styles/page/background-font.css'
+// background-font.css moved to globals.css to avoid preload warning
 
 interface BackgroundFontProps {
   children: React.ReactNode

@@ -46,7 +46,7 @@ function OGImage(props: OGImageProps) {
       />
       <div style={{ fontSize, maxWidth: 740, fontWeight: 600 }}>{title}</div>
       <div style={{ display: 'flex', fontSize: 30, position: 'absolute', right: 50, bottom: 50, fontWeight: 500 }}>
-        eonova.me
+        iori-yimaga.site
         {url}
       </div>
     </div>

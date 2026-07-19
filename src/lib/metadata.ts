@@ -66,10 +66,10 @@ export function createMetadata(options: Options): Metadata {
         card: 'summary_large_image',
         title: SITE_NAME,
         description: SITE_DESCRIPTION,
-        site: '@030Eonova',
-        siteId: '1693931091722465280',
-        creator: '@030Eonova',
-        creatorId: '1693931091722465280',
+        site: '@Iori_yimaga',
+        siteId: '',
+        creator: '@Iori_yimaga',
+        creatorId: '',
         images: [
           {
             url: '/images/og.png',

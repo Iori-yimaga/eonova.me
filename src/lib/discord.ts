@@ -25,7 +25,7 @@ export async function sendGuestbookNotification(message: string, userName: strin
       {
         title: 'New message on the guestbook!',
         description: message,
-        url: 'https://eonova.me/guestbook',
+        url: 'https://iori-yimaga.site/guestbook',
         color: 6_609_519,
         author: {
           name: userName,

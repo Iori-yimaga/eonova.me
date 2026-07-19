@@ -107,8 +107,8 @@ function GetInTouch() {
                   d="M12 5.50676L0 0L2.83818 13L6.30623 7.86537L12 5.50676V5.50676Z"
                 />
               </svg>
-              <span className="relative left-4 rounded-3xl bg-red-500 px-2 py-0.5 text-xs text-white">
-                Eonova
+              <span className="relative left-4 whitespace-nowrap rounded-3xl bg-red-500 px-2 py-0.5 text-xs text-white">
+                慕乐
               </span>
             </div>
           </div>
@@ -120,10 +120,10 @@ function GetInTouch() {
             <p className="text-zinc-800 dark:text-zinc-300">期待ing (✧∀✧)</p>
             <div className="my-8">
               <a
-                href="mailto:hi@eonova.me"
+                href="mailto:hi@iori-yimaga.site"
                 className="bg-email-button rounded-full px-4 py-2 text-sm text-white"
               >
-                hi@eonova.me
+                hi@iori-yimaga.site
               </a>
             </div>
           </div>

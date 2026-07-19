@@ -1,11 +1,7 @@
 :root {
-  --dash-array-1: 486px;
-  --dash-array-2: 362px;
-  --dash-array-3: 468px;
-  --dash-array-4: 104px;
-  --dash-array-5: 294px;
-  --dash-array-6: 314px;
+  --dash-array-1: 500px;
 }
+
 @media (prefers-reduced-motion) {
   path {
     animation: none !important;
@@ -51,26 +47,12 @@
   }
 }
 
-#eGgXFSmcNq71 path:nth-child(1) {
+#eGgXFSmcNq71 text:nth-child(1) {
   --dash-array: var(--dash-array-1);
-  animation: draw 1s ease forwards 1s;
+  animation: draw 1.5s ease forwards 1s;
 }
 
-#eGgXFSmcNq71 path:nth-child(2) {
-  --dash-array: var(--dash-array-2);
-  animation: draw 1.5s ease forwards 1.6s;
-}
-
-#eGgXFSmcNq71 path:nth-child(3) {
-  --dash-array: var(--dash-array-3);
-  animation: draw 0.5s ease forwards 3.1s;
-}
-#eGgXFSmcNq71 path:nth-child(4) {
-  --dash-array: var(--dash-array-3);
-  animation: draw 0.5s ease forwards 3.6s;
-}
-
-#eGgXFSmcNq71 path {
+#eGgXFSmcNq71 text {
   stroke-dashoffset: 10px;
   stroke-dasharray: var(--dash-array);
   transform-origin: center;

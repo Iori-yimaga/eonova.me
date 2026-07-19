@@ -1,7 +1,7 @@
 'use client'
 
 import Zoom from 'react-medium-image-zoom'
-import '~/styles/page/image-zoom.css'
+// image-zoom.css moved to globals.css to avoid preload warning
 
 import 'react-medium-image-zoom/dist/styles.css'
 

@@ -5,7 +5,7 @@ import bundleAnalyzer from '@next/bundle-analyzer'
 import { IS_PRODUCTION } from './src/config/constants'
 import { env } from './src/lib/env'
 
-process.title = 'Eonova (NextJS)'
+process.title = '慕乐 (NextJS)'
 
 const withMDX = createMDX({
   configPath: './content.config.ts',
@@ -86,10 +86,6 @@ const remotePatterns: NonNullable<NextConfig['images']>['remotePatterns'] = [
     protocol: 'https',
     hostname: 'lain.bgm.tv',
   },
-  {
-    protocol: 'https',
-    hostname: 'img.eonova.me',
-  },
 ]
 
 if (!IS_PRODUCTION) {
@@ -111,6 +107,9 @@ if (env.CLOUDFLARE_R2_PUBLIC_URL) {
 const config: NextConfig = {
   productionBrowserSourceMaps: true,
 
+  // Allow cross-origin dev requests from production domain
+  allowedDevOrigins: ['iori-yimaga.site'],
+
   typescript: {
     ignoreBuildErrors: !!process.env.CI,
   },
@@ -124,6 +123,56 @@ const config: NextConfig = {
   skipTrailingSlashRedirect: true,
   compress: true,
   reactStrictMode: true,
+
+  async headers() {
+    return [
+      {
+        source: '/:path*',
+        headers: [
+          {
+            key: 'Access-Control-Allow-Origin',
+            value: 'https://iori-yimaga.site',
+          },
+          {
+            key: 'Access-Control-Allow-Methods',
+            value: 'GET, POST, PUT, DELETE, OPTIONS',
+          },
+          {
+            key: 'Access-Control-Allow-Headers',
+            value: 'Content-Type, Authorization',
+          },
+          {
+            key: 'Referrer-Policy',
+            value: 'strict-origin-when-cross-origin',
+          },
+          {
+            key: 'Permissions-Policy',
+            value: 'camera=(), microphone=(), geolocation=()',
+          },
+          {
+            key: 'Strict-Transport-Security',
+            value: 'max-age=31536000; includeSubDomains; preload',
+          },
+          {
+            key: 'X-Frame-Options',
+            value: 'SAMEORIGIN',
+          },
+          {
+            key: 'X-Content-Type-Options',
+            value: 'nosniff',
+          },
+          {
+            key: 'X-DNS-Prefetch-Control',
+            value: 'on',
+          },
+          {
+            key: 'X-XSS-Protection',
+            value: '1; mode=block',
+          },
+        ],
+      },
+    ]
+  },
 
   // PostHog rewrites
   async rewrites() {
@@ -166,7 +215,7 @@ const config: NextConfig = {
     staticGenerationRetryCount: 1,
     staticGenerationMaxConcurrency: 8,
     staticGenerationMinPagesPerWorker: 25,
-    optimizeCss: true,
+    optimizeCss: process.env.NODE_ENV === 'production',
   },
 
   async redirects() {
@@ -185,44 +234,6 @@ const config: NextConfig = {
         source: '/rss',
         destination: '/rss.xml',
         permanent: true,
-      },
-    ]
-  },
-
-  async headers() {
-    return [
-      {
-        source: '/(.*)',
-        headers: [
-          {
-            key: 'Referrer-Policy',
-            value: 'strict-origin-when-cross-origin',
-          },
-          {
-            key: 'Permissions-Policy',
-            value: 'camera=(), microphone=(), geolocation=()',
-          },
-          {
-            key: 'Strict-Transport-Security',
-            value: 'max-age=31536000; includeSubDomains; preload',
-          },
-          {
-            key: 'X-Frame-Options',
-            value: 'SAMEORIGIN',
-          },
-          {
-            key: 'X-Content-Type-Options',
-            value: 'nosniff',
-          },
-          {
-            key: 'X-DNS-Prefetch-Control',
-            value: 'on',
-          },
-          {
-            key: 'X-XSS-Protection',
-            value: '1; mode=block',
-          },
-        ],
       },
     ]
   },

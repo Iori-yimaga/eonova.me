@@ -10,21 +10,21 @@ export interface MusicPlaylist {
 
 export const musicConfig: MusicPlaylist[] = [
   {
-    title: '新世纪',
+    title: '我的收藏',
     list: [
-      'https://music.163.com/#/playlist?id=13909889475',
+      'https://music.163.com/#/playlist?id=163334200',
     ],
   },
   {
-    title: '造梦',
+    title: '夏日治愈｜海',
     list: [
-      'https://music.163.com/#/playlist?id=8156201047',
+      'https://music.163.com/#/playlist?id=7348387343',
     ],
   },
   {
-    title: '空の物语',
+    title: ' K！ON',
     list: [
-      'https://music.163.com/#/playlist?id=14465506795',
+      'https://music.163.com/#/playlist?id=744582007',
     ],
   },
 ]

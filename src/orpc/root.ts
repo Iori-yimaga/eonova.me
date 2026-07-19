@@ -62,7 +62,7 @@ const errorMiddleware = base.middleware(async ({ path, context, next }) => {
     }
 
     console.error(error)
-    posthog.captureException(error, context.session?.user.id, metadata)
+    posthog?.captureException(error, context.session?.user.id, metadata)
     throw error
   }
 })
