@@ -1,14 +1,12 @@
 'use client'
 import type { UrlObject } from 'node:url'
 import Link from 'next/link'
-import { useState } from 'react'
 import { useNeteaseStats } from '~/hooks/queries/stat.query'
 import { Popover, PopoverContent, PopoverTrigger } from '../../base/popover'
 import ShinyText from '../../shared/shiny-text'
 
 function NowPlaying() {
   const { isSuccess, isLoading, isError, data } = useNeteaseStats()
-  const [open, setOpen] = useState(false)
 
   const isPlaying = isSuccess && data.isPlaying && data.songUrl
 
@@ -30,15 +28,17 @@ function NowPlaying() {
       <div className="inline-flex w-full items-center justify-center gap-1 text-sm md:justify-start">
         {isPlaying
           ? (
-            <Popover open={open} onOpenChange={setOpen}>
+            <Popover>
               <PopoverTrigger
+                openOnHover
+                delay={300}
+                closeDelay={200}
                 className="cursor-pointer rounded-md transition-colors hover:bg-foreground/5"
-                render={
-                  <Link href={data.songUrl as unknown as UrlObject}>
-                    <ShinyText text={`${data.name} - ${data.artist}`} disabled speed={3} className="custom-class" />
-                  </Link>
-                }
-              />
+              >
+                <Link href={data.songUrl as unknown as UrlObject}>
+                  <ShinyText text={`${data.name} - ${data.artist}`} disabled speed={3} className="custom-class" />
+                </Link>
+              </PopoverTrigger>
               {data.topSongs && data.topSongs.length > 1 && (
                 <PopoverContent side="top" align="start" sideOffset={8} className="w-80 p-0">
                   <div className="px-3 py-2 text-xs font-medium text-muted-foreground border-b">
