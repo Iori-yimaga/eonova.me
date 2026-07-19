@@ -82,18 +82,30 @@ const getStats = publicProcedure.output(NetEaseStatsOutputSchema).handler(async 
     return EMPTY_RESPONSE
   }
 
-  const topSong = allData[0]
-  if (!topSong?.song) {
+  const topSongs = allData.slice(0, 10).map(item => {
+    const song = item.song
+    const artists = song.ar.map(a => a.name).join(', ')
+    return {
+      id: song.id,
+      name: song.name,
+      artist: artists,
+      songUrl: `https://music.163.com/#/song?id=${song.id}`,
+      coverUrl: song.al?.picUrl ?? null,
+      playCount: item.playCount,
+    }
+  })
+
+  const firstSong = topSongs[0]
+  if (!firstSong) {
     return EMPTY_RESPONSE
   }
-  const song = topSong.song
-  const artists = song.ar.map(a => a.name).join(', ')
 
   return {
     isPlaying: true,
-    songUrl: `https://music.163.com/#/song?id=${song.id}`,
-    name: song.name,
-    artist: artists,
+    songUrl: firstSong.songUrl,
+    name: firstSong.name,
+    artist: firstSong.artist,
+    topSongs,
   }
 })
 
