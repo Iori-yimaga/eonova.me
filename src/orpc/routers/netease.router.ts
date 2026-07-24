@@ -14,6 +14,12 @@ const EMPTY_RESPONSE: z.infer<typeof NotPlayingSchema> = {
   artist: null,
 }
 
+// 将 HTTP 链接升级为 HTTPS，避免 Mixed Content 警告
+function ensureHttps(url: string | null): string | null {
+  if (!url) return null
+  return url.replace(/^http:\/\//, 'https://')
+}
+
 const NETEASE_COOKIE = env.NETEASE_COOKIE
 
 const HEADERS = {
@@ -139,10 +145,14 @@ const getStats = publicProcedure.output(NetEaseStatsOutputSchema).handler(async 
     songUrl: firstSong.songUrl,
     name: firstSong.name,
     artist: firstSong.artist,
-    coverUrl: firstSong.coverUrl,
-    audioUrl: firstSong.audioUrl,
+    coverUrl: ensureHttps(firstSong.coverUrl),
+    audioUrl: ensureHttps(firstSong.audioUrl),
     duration: firstSong.duration,
-    topSongs,
+    topSongs: topSongs.map(s => ({
+      ...s,
+      coverUrl: ensureHttps(s.coverUrl),
+      audioUrl: ensureHttps(s.audioUrl),
+    })),
   }
 })
 

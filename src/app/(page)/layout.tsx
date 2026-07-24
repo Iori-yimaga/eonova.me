@@ -1,7 +1,7 @@
 import type { Metadata, Viewport } from 'next'
-import { SpeedInsights } from '@vercel/speed-insights/next'
 import { GeistMono } from 'geist/font/mono'
 import { GeistSans } from 'geist/font/sans'
+import SpeedInsightsWrapper from '~/components/shared/speed-insights-wrapper'
 import SignInDialog from '~/components/layouts/internal/sign-in-dialog'
 import Hello from '~/components/shared/hello'
 import { ErrorBoundaryMonitor, PerformanceMonitor } from '~/components/shared/performance-monitor'
@@ -42,7 +42,7 @@ export default function RootLayout({
           <ErrorBoundaryMonitor children={children} />
           <SignInDialog />
         </Providers>
-        <SpeedInsights />
+        <SpeedInsightsWrapper />
       </body>
     </html>
   )

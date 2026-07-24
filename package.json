@@ -10,7 +10,9 @@
     "node": ">=22"
   },
   "scripts": {
-    "dev": "pnpm with-env next dev --turbo -p 13000",
+    "dev": "pnpm with-env next dev --turbo -p 3000",
+    "dev:redis": "node scripts/redis-proxy.mjs",
+    "dev:all": "node scripts/redis-proxy.mjs & pnpm dev",
     "build": "pnpm with-env next build",
     "build:mdx": "content-collections build --config ./content.config.ts",
     "typegen": "next typegen",
@@ -18,7 +20,7 @@
     "clean": "rm -rf .next .content-collections test-results playwright-report",
     "check:knip": "pnpm with-env knip",
     "check:spelling": "cspell -c .cspell.json --no-progress --no-summary --no-must-find-files --unique",
-    "start": "next start",
+    "start": "next start -p 13000",
     "db:check": "pnpm with-env drizzle-kit check",
     "db:generate": "pnpm with-env drizzle-kit generate",
     "db:migrate": "pnpm with-env drizzle-kit migrate",
