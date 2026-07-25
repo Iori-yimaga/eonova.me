@@ -11,6 +11,7 @@ packages:
 catalog:
 catalogs:
   analysis:
+    '@napi-rs/canvas': ^1.0.2
     '@next/bundle-analyzer': ^16.2.3
     '@vercel/speed-insights': ^2.0.0
     posthog-js: ^1.367.0

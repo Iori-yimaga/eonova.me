@@ -155,6 +155,7 @@
     "@content-collections/mdx": "catalog:mdx",
     "@content-collections/next": "catalog:mdx",
     "@eslint-react/eslint-plugin": "catalog:lint",
+    "@napi-rs/canvas": "catalog:analysis",
     "@next/bundle-analyzer": "catalog:analysis",
     "@playwright/test": "catalog:test",
     "@react-email/preview-server": "catalog:ui",

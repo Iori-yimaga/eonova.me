@@ -1,7 +1,7 @@
 'use client'
 
-import type { Note, Post } from 'content-collections'
-import { allNotes, allPosts } from 'content-collections'
+import type { Post } from 'content-collections'
+import { allPosts } from 'content-collections'
 import { ArrowRight } from 'lucide-react'
 import { motion, useInView } from 'motion/react'
 import Link from 'next/link'
@@ -26,11 +26,6 @@ function LatestNews() {
   const projectsRef = useRef<HTMLDivElement>(null)
   const isInView = useInView(projectsRef, { once: true, margin: '-100px' })
   const filteredPosts = allPosts
-    .toSorted((a, b) => {
-      return new Date(b.date).getTime() - new Date(a.date).getTime()
-    })
-    .slice(0, 3)
-  const filteredNotes = allNotes
     .toSorted((a, b) => {
       return new Date(b.date).getTime() - new Date(a.date).getTime()
     })
@@ -78,10 +73,6 @@ function LatestNews() {
         }}
       >
         <Card articles={filteredPosts} />
-        <div className="hidden justify-center sm:flex">
-          <div className="h-full w-px rounded-full bg-gray-500/20" />
-        </div>
-        <Card color text="手记" articles={filteredNotes} />
       </motion.div>
     </motion.div>
   )
@@ -89,12 +80,11 @@ function LatestNews() {
 
 interface CardProps {
   text?: string
-  color?: boolean
-  articles: Post[] | Note[]
+  articles: Post[]
 }
 
 function Card(props: CardProps) {
-  const { articles, text = '文章', color = false } = props
+  const { articles, text = '文章' } = props
   return (
     <div className="relative col-span-6 flex flex-col px-2">
       <BackgroundFont
@@ -103,7 +93,7 @@ function Card(props: CardProps) {
       >
         {text}
       </BackgroundFont>
-      <TimelineList className={color ? 'shiro-timeline-yellow' : ''}>
+      <TimelineList>
         {articles.map((child) => {
           const date = new Date(child.date)
 
