@@ -5,7 +5,7 @@ function Logo({ className, style }: { className?: string, style?: React.CSSPrope
   return (
     <div className={cn('flex flex-col gap-4 md:flex-row', className)} style={{ display: 'flex', ...style }}>
       <div className="flex w-full items-center justify-center rounded-lg" style={{ display: 'flex' }}>
-        <Image src="/favicon/apple-touch-icon.png" alt="慕乐" width={48} height={48} />
+        <Image src="/favicon/logo.svg" alt="慕乐" width={48} height={48} />
       </div>
     </div>
   )

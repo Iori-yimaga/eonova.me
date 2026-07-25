@@ -38,7 +38,7 @@ function OGImage(props: OGImageProps) {
       }}
     >
       <img
-        src={`${baseUrl}/favicon/apple-touch-icon.png`}
+        src={`${baseUrl}/favicon/logo.svg`}
         width={48}
         height={48}
         alt=""

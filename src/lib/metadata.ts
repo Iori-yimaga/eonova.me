@@ -84,9 +84,9 @@ export function createMetadata(options: Options): Metadata {
         shortcut: '/favicon/favicon.svg',
         apple: [
           {
-            url: '/favicon/apple-touch-icon.png',
+            url: '/favicon/logo.svg',
             sizes: '180x180',
-            type: 'image/png',
+            type: 'image/svg+xml',
           },
         ],
         other: [
