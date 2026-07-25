@@ -59,7 +59,7 @@ function LatestNews() {
         最新动态
       </motion.h2>
       <motion.div
-        className="mt-12 grid gap-10 sm:gap-4 md:grid-cols-13"
+        className="mt-12 flex justify-center"
         initial={{
           y: 40,
           opacity: 0,
@@ -86,7 +86,7 @@ interface CardProps {
 function Card(props: CardProps) {
   const { articles, text = '文章' } = props
   return (
-    <div className="relative col-span-6 flex flex-col px-2">
+    <div className="relative flex w-full flex-col px-2">
       <BackgroundFont
         className="absolute top-[-20] right-0 z-[1] !h-full text-5xl text-gray-500/50 !opacity-30 dark:text-white/50"
         lineHeight="1"

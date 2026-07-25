@@ -1,5 +1,6 @@
 import type { Context, Meta } from '@content-collections/core'
 import { createHash } from 'node:crypto'
+import { statSync } from 'node:fs'
 import { defineCollection, defineConfig } from '@content-collections/core'
 import { compileMDX } from '@content-collections/mdx'
 import { getTOC, rehypePlugins, remarkPlugins } from '@eonova/mdx-plugins'
@@ -90,8 +91,17 @@ async function transform<D extends BaseDoc>(
   const pathStr = removeTrim(path)
   const slug = isPost || isNote ? generateSlug(pathStr ?? '', 10) : pathStr
 
+  // Auto-fill date/modifiedTime from file system timestamps
+  const filePath = `${context.collection.directory}/${path}.md`
+  const stats = statSync(filePath)
+  const birthtime = stats.birthtime.toISOString()
+  const mtime = stats.mtime.toISOString()
+
+  const doc = document as Record<string, any>
   return {
     ...document,
+    date: doc.date || birthtime,
+    modifiedTime: doc.modifiedTime || mtime,
     code,
     ...{
       categories: isPost ? validateCategory(path) : void 0,
@@ -109,11 +119,11 @@ const posts = defineCollection({
   include: '**/*.md',
   schema: z.object({
     title: z.string(),
-    date: z.string(),
-    modifiedTime: z.string(),
+    date: z.string().default(''),
+    modifiedTime: z.string().default(''),
     intro: z.string().optional(),
     tags: z.array(z.string()).default([]),
-    cover: z.string(),
+    cover: z.string().default(''),
     content: z.string(),
   }),
   transform,
@@ -125,28 +135,11 @@ const notes = defineCollection({
   include: '**/*.md',
   schema: z.object({
     title: z.string(),
-    date: z.string(),
+    date: z.string().default(''),
     intro: z.string().optional(),
     mood: z.string(),
     weather: z.string(),
     cover: z.string(),
-    content: z.string(),
-  }),
-  transform,
-})
-
-const projects = defineCollection({
-  name: 'projects',
-  directory: './data/projects',
-  include: '**/*.md',
-  schema: z.object({
-    name: z.string(),
-    description: z.string(),
-    homepage: z.string().optional(),
-    github: z.string(),
-    techstack: z.array(z.string()),
-    selected: z.boolean().optional().default(false),
-    dateCreated: z.string(),
     content: z.string(),
   }),
   transform,
@@ -163,5 +156,5 @@ const pages = defineCollection({
 })
 
 export default defineConfig({
-  collections: [notes, posts, projects, pages],
+  collections: [notes, posts, pages],
 })
