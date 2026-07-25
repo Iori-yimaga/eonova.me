@@ -28,10 +28,6 @@ export async function GET(_request: Request, props: RouteContext<'/og/[...slug]'
     return generateNoteOGImage(normalizedSlug)
   }
 
-  if (pathname.startsWith('/projects/')) {
-    return generateProjectOGImage(normalizedSlug)
-  }
-
   return generatePageOGImage(normalizedSlug, pathname)
 }
 
@@ -77,24 +73,6 @@ async function generatePageOGImage(slugs: string[], pathname: string) {
     notFound()
 
   return generateOGImage(pageSlug, pathname, getBaseUrl())
-}
-
-async function generateProjectOGImage(slugs: string[]) {
-  const projectSlug = slugs.at(-1)
-  if (!projectSlug)
-    notFound()
-
-  const imageBuffer = await fs.readFile(
-    path.join(process.cwd(), 'public', 'images', 'projects', `${projectSlug}.png`),
-  )
-
-  return new NextResponse(new Uint8Array(imageBuffer), {
-    status: 200,
-    headers: {
-      'Content-Type': 'image/png',
-      'Cache-Control': 'no-cache, no-store',
-    },
-  })
 }
 
 async function generateOGImage(title: string, url: string, baseUrl?: string) {

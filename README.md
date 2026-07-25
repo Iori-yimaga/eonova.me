@@ -12,7 +12,7 @@ A personal blog and portfolio built with Next.js, integrating technical article 
 
 ## 🌌 Features
 
--   **Content Management**: Blog posts, Notes, Projects, and Photo Album with MDX support.
+-   **Content Management**: Blog posts, Notes, and Photo Album with MDX support.
 -   **Interactive Comments**: Nested replies, markdown support, emoji reactions, and email notifications.
 -   **Social Features**: Guestbook, Friends links, and "Talk" (micro-blogging).
 -   **User System**: Authentication (GitHub/Google), Profile management, and Active sessions tracking.

@@ -24,13 +24,6 @@ test.describe('Error Handling and Edge Cases', () => {
       await expect(page.getByRole('heading', { name: /404|Not Found|页面未找到/ })).toBeVisible()
     })
 
-    test('should show 404 for non-existent projects', async ({ page }) => {
-      await page.goto('/projects/non-existent-project-slug')
-
-      // Should show 404 page
-      await expect(page.getByRole('heading', { name: /404|Not Found|页面未找到/ })).toBeVisible()
-    })
-
     test('should show 404 for non-existent categories', async ({ page }) => {
       await page.goto('/categories/non-existent-category')
 
@@ -140,7 +133,7 @@ test.describe('Error Handling and Edge Cases', () => {
     test('should handle special characters in input', async ({ page }) => {
       await page.goto('/search')
 
-      const searchInput = page.getByPlaceholder('搜索文章、笔记、项目...')
+      const searchInput = page.getByPlaceholder('搜索文章、笔记...')
 
       // Test special characters
       const specialChars = '<script>alert("xss")</script>'
@@ -284,7 +277,7 @@ test.describe('Error Handling and Edge Cases', () => {
       await page.goto('/search?q=<script>alert("xss")</script>')
 
       // Should not execute the script
-      const searchInput = page.getByPlaceholder('搜索文章、笔记、项目...')
+      const searchInput = page.getByPlaceholder('搜索文章、笔记...')
       const inputValue = await searchInput.inputValue()
 
       // Input should contain the text but not execute as script

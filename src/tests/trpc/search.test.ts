@@ -28,7 +28,7 @@ function fuzzySearch(query: string, text: string): number {
   return (queryIndex / queryLower.length) * 50
 }
 
-function calculateScore(query: string, item: any, _type: 'post' | 'note' | 'project'): number {
+function calculateScore(query: string, item: any, _type: 'post' | 'note'): number {
   const titleScore = fuzzySearch(query, item.title || item.name || '') * 3
   const summaryScore = item.summary ? fuzzySearch(query, item.summary) * 2 : 0
   const contentScore = item.content ? fuzzySearch(query, item.content) * 1 : 0
@@ -91,17 +91,6 @@ describe('search Functions', () => {
       }
 
       const score = calculateScore('React', item, 'post')
-      expect(score).toBeGreaterThan(0)
-    })
-
-    it('should work with project items', () => {
-      const item = {
-        name: 'React Project',
-        description: 'A React project',
-        content: 'Project content',
-      }
-
-      const score = calculateScore('React', item, 'project')
       expect(score).toBeGreaterThan(0)
     })
   })

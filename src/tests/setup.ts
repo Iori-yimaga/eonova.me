@@ -87,16 +87,4 @@ vi.mock('content-collections', () => ({
       weather: 'sunny',
     },
   ],
-  allProjects: [
-    {
-      slug: 'react-component-lib',
-      name: 'React Component Library',
-      description: 'A collection of reusable React components',
-      content: 'This project contains...',
-      date: '2024-01-04',
-      techstack: ['React', 'TypeScript'],
-      github: 'https://github.com/user/react-lib',
-      homepage: 'https://react-lib.com',
-    },
-  ],
 }))

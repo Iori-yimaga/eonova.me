@@ -4,7 +4,7 @@
 
 ## 1. 项目概览 (Project Overview)
 
-**eonova.me** 是一个现代化的个人网站与作品集项目，采用全栈 TypeScript 开发，具有高性能、强类型、响应式设计等特点。项目内嵌了博客、随笔、项目展示、留言板、后台管理以及丰富的第三方集成。
+**eonova.me** 是一个现代化的个人网站与作品集项目，采用全栈 TypeScript 开发，具有高性能、强类型、响应式设计等特点。项目内嵌了博客、随笔、留言板、后台管理以及丰富的第三方集成。
 
 ### 核心技术栈
 - **核心框架**: Next.js 15+ (App Router) + React 19
@@ -26,7 +26,6 @@ eonova.me/
 ├── data/               # 内容数据源 (MDX, JSON)
 │   ├── notes/          # 随笔内容
 │   ├── posts/          # 博客文章
-│   ├── projects/       # 项目展示数据
 │   └── pages/          # 静态页面协议等
 ├── src/                # 应用程序源代码
 │   ├── app/            # Next.js App Router 路由体系
@@ -58,7 +57,7 @@ eonova.me/
 ### 3.1 内容渲染模块 (Content & MDX)
 - **职责**: 将 Markdown/MDX 文件转换为具有丰富交互的页面。
 - **核心文件**:
-  - `content.config.ts`: 定义了 `posts`, `notes`, `projects` 的数据 Schema 和解析流程，自动提取 frontmatter 并生成目录 (TOC) 与 slug。
+  - `content.config.ts`: 定义了 `posts`, `notes` 的数据 Schema 和解析流程，自动提取 frontmatter 并生成目录 (TOC) 与 slug。
   - `src/components/modules/mdx/`: 提供了一套用于渲染 MDX 的自定义 React 组件（如自定义的代码高亮、提示框、链接卡片等）。
 
 ### 3.2 强类型 API 模块 (oRPC)

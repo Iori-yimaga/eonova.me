@@ -8,11 +8,11 @@ test.describe('Search Functionality', () => {
   test.describe('Search Page Layout', () => {
     test('should display search page with correct title and description', async ({ page }) => {
       await expect(page.getByRole('heading', { name: '搜索' })).toBeVisible()
-      await expect(page.getByText('搜索文章、笔记和项目内容')).toBeVisible()
+      await expect(page.getByText('搜索文章、笔记内容')).toBeVisible()
     })
 
     test('should display search input with placeholder', async ({ page }) => {
-      const searchInput = page.getByPlaceholder('搜索文章、笔记、项目...')
+      const searchInput = page.getByPlaceholder('搜索文章、笔记...')
       await expect(searchInput).toBeVisible()
       await expect(searchInput).toBeFocused()
     })
@@ -25,21 +25,21 @@ test.describe('Search Functionality', () => {
 
   test.describe('Search Input Functionality', () => {
     test('should allow typing in search input', async ({ page }) => {
-      const searchInput = page.getByPlaceholder('搜索文章、笔记、项目...')
+      const searchInput = page.getByPlaceholder('搜索文章、笔记...')
 
       await searchInput.fill('React')
       await expect(searchInput).toHaveValue('React')
     })
 
     test('should show clear button when input has value', async ({ page }) => {
-      const searchInput = page.getByPlaceholder('搜索文章、笔记、项目...')
+      const searchInput = page.getByPlaceholder('搜索文章、笔记...')
 
       await searchInput.fill('test query')
       await expect(page.getByRole('button').filter({ hasText: '×' })).toBeVisible()
     })
 
     test('should clear input when clear button is clicked', async ({ page }) => {
-      const searchInput = page.getByPlaceholder('搜索文章、笔记、项目...')
+      const searchInput = page.getByPlaceholder('搜索文章、笔记...')
 
       await searchInput.fill('test query')
       await page.getByRole('button').filter({ hasText: '×' }).click()
@@ -48,7 +48,7 @@ test.describe('Search Functionality', () => {
     })
 
     test('should trigger search on Enter key', async ({ page }) => {
-      const searchInput = page.getByPlaceholder('搜索文章、笔记、项目...')
+      const searchInput = page.getByPlaceholder('搜索文章、笔记...')
 
       await searchInput.fill('React')
       await searchInput.press('Enter')
@@ -58,7 +58,7 @@ test.describe('Search Functionality', () => {
     })
 
     test('should trigger search on search button click', async ({ page }) => {
-      const searchInput = page.getByPlaceholder('搜索文章、笔记、项目...')
+      const searchInput = page.getByPlaceholder('搜索文章、笔记...')
 
       await searchInput.fill('Vue')
       await page.getByRole('button', { name: 'Search' }).click()
@@ -68,7 +68,7 @@ test.describe('Search Functionality', () => {
     })
 
     test('should close suggestions on Escape key', async ({ page }) => {
-      const searchInput = page.getByPlaceholder('搜索文章、笔记、项目...')
+      const searchInput = page.getByPlaceholder('搜索文章、笔记...')
 
       await searchInput.fill('test')
       await searchInput.press('Escape')
@@ -80,7 +80,7 @@ test.describe('Search Functionality', () => {
 
   test.describe('Search Suggestions', () => {
     test('should show suggestions when typing', async ({ page }) => {
-      const searchInput = page.getByPlaceholder('搜索文章、笔记、项目...')
+      const searchInput = page.getByPlaceholder('搜索文章、笔记...')
 
       await searchInput.fill('Re')
 
@@ -95,7 +95,7 @@ test.describe('Search Functionality', () => {
     })
 
     test('should hide suggestions when input is cleared', async ({ page }) => {
-      const searchInput = page.getByPlaceholder('搜索文章、笔记、项目...')
+      const searchInput = page.getByPlaceholder('搜索文章、笔记...')
 
       await searchInput.fill('test')
       await page.waitForTimeout(500)
@@ -110,7 +110,7 @@ test.describe('Search Functionality', () => {
 
   test.describe('Search Results', () => {
     test('should show loading state during search', async ({ page }) => {
-      const searchInput = page.getByPlaceholder('搜索文章、笔记、项目...')
+      const searchInput = page.getByPlaceholder('搜索文章、笔记...')
 
       await searchInput.fill('React')
       await searchInput.press('Enter')
@@ -145,7 +145,7 @@ test.describe('Search Functionality', () => {
     })
 
     test('should not search for queries less than 2 characters', async ({ page }) => {
-      const searchInput = page.getByPlaceholder('搜索文章、笔记、项目...')
+      const searchInput = page.getByPlaceholder('搜索文章、笔记...')
 
       await searchInput.fill('a')
       await searchInput.press('Enter')
@@ -285,7 +285,7 @@ test.describe('Search Functionality', () => {
       await page.goto('/search?q=React&type=posts')
 
       // Input should have the query value
-      const searchInput = page.getByPlaceholder('搜索文章、笔记、项目...')
+      const searchInput = page.getByPlaceholder('搜索文章、笔记...')
       await expect(searchInput).toHaveValue('React')
 
       // Posts filter should be active
@@ -296,7 +296,7 @@ test.describe('Search Functionality', () => {
     })
 
     test('should update URL when search parameters change', async ({ page }) => {
-      const searchInput = page.getByPlaceholder('搜索文章、笔记、项目...')
+      const searchInput = page.getByPlaceholder('搜索文章、笔记...')
 
       // Type a search query
       await searchInput.fill('JavaScript')
@@ -316,18 +316,18 @@ test.describe('Search Functionality', () => {
 
     test('should maintain search state on page refresh', async ({ page }) => {
       // Navigate with search parameters
-      await page.goto('/search?q=Vue&type=projects')
+      await page.goto('/search?q=Vue&type=notes')
 
       // Refresh the page
       await page.reload()
 
       // Search state should be maintained
-      const searchInput = page.getByPlaceholder('搜索文章、笔记、项目...')
+      const searchInput = page.getByPlaceholder('搜索文章、笔记...')
       await expect(searchInput).toHaveValue('Vue')
 
-      const projectsFilter = page.getByRole('button', { name: /项目/ })
-      if (await projectsFilter.isVisible()) {
-        await expect(projectsFilter).toHaveClass(/bg-primary|variant-default/)
+      const notesFilter = page.getByRole('button', { name: /手记/ })
+      if (await notesFilter.isVisible()) {
+        await expect(notesFilter).toHaveClass(/bg-primary|variant-default/)
       }
     })
   })
@@ -337,7 +337,7 @@ test.describe('Search Functionality', () => {
       // Tab to search input
       await page.keyboard.press('Tab')
 
-      const searchInput = page.getByPlaceholder('搜索文章、笔记、项目...')
+      const searchInput = page.getByPlaceholder('搜索文章、笔记...')
       await expect(searchInput).toBeFocused()
 
       // Type and search
@@ -349,7 +349,7 @@ test.describe('Search Functionality', () => {
     })
 
     test('should have proper ARIA labels', async ({ page }) => {
-      const searchInput = page.getByPlaceholder('搜索文章、笔记、项目...')
+      const searchInput = page.getByPlaceholder('搜索文章、笔记...')
 
       // Check for proper labeling
       await expect(searchInput).toHaveAttribute('type', 'text')
