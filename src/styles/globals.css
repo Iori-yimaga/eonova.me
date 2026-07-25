@@ -13,6 +13,7 @@
 @import './page/gallery.css';
 @import './page/header.css';
 @import './page/image-zoom.css';
+@import 'react-medium-image-zoom/dist/styles.css';
 @import './page/music-playing.css';
 @import './page/progress.css';
 @import './page/quote.css';

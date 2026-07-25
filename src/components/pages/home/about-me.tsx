@@ -1,16 +1,18 @@
 'use client'
 
 import { motion, useInView } from 'motion/react'
+import dynamic from 'next/dynamic'
 import Link from 'next/link'
 
 import { useRef } from 'react'
 import { buttonVariants } from '~/components/base/button'
 import { cn } from '~/utils'
-import CodingHours from './coding-hours'
 import Connect from './connect'
 import FavoriteFramework from './favorite-framework'
-import LocationCard from './location-card'
 import StacksCard from './stacks-card'
+
+const LocationCard = dynamic(() => import('./location-card'), { ssr: false, loading: () => <div className="shadow-feature-card h-60 rounded-xl animate-pulse bg-muted" /> })
+const CodingHours = dynamic(() => import('./coding-hours'), { ssr: false, loading: () => <div className="shadow-feature-card h-24 rounded-xl animate-pulse bg-muted" /> })
 
 const variants = {
   initial: {

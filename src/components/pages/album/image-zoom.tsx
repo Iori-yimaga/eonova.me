@@ -1,9 +1,7 @@
 'use client'
 
 import Zoom from 'react-medium-image-zoom'
-// image-zoom.css moved to globals.css to avoid preload warning
-
-import 'react-medium-image-zoom/dist/styles.css'
+// react-medium-image-zoom/dist/styles.css 已移入 globals.css，避免预加载警告
 
 type ImageZoomProps = {
   children: React.ReactNode

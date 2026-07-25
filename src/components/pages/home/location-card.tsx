@@ -9,7 +9,7 @@ function LocationCard() {
   const canvasRef = useRef<HTMLCanvasElement>(null)
   const pointerInteracting = useRef<number | null>(null)
   const pointerInteractionMovement = useRef(0)
-  const fadeMask = 'radial-gradient(circle at 50% 50%, rgb(0, 0, 0) 60%, rgb(0, 0, 0, 0) 70%)'
+  const fadeMask = 'radial-gradient(circle at 50% 50%, rgb(0, 0, 0) 50%, rgb(0, 0, 0, 0) 70%)'
 
   const [{ r }, api] = useSpring(() => ({
     r: 0,
@@ -22,59 +22,52 @@ function LocationCard() {
   }))
 
   useEffect(() => {
-    let width = 0
-    let globe: ReturnType<typeof createGlobe> | null = null
-    let rafId: number | null = null
-
-    const onResize = () => {
-      // eslint-disable-next-line no-cond-assign
-      if (canvasRef.current && (width = canvasRef.current.offsetWidth)) {
-        window.addEventListener('resize', onResize)
-      }
-    }
-    onResize()
-
     if (!canvasRef.current)
       return
 
-    // Defer globe creation to next frame to avoid WebGL context conflict
-    // in React 19 Strict Mode (double effect invocation)
-    rafId = requestAnimationFrame(() => {
-      if (!canvasRef.current)
-        return
+    const width = canvasRef.current.offsetWidth
+    if (!width)
+      return
 
-      globe = createGlobe(canvasRef.current, {
-        devicePixelRatio: 2,
-        width: width * 2,
-        height: width * 2,
-        phi: 0,
-        theta: 0,
-        dark: 1,
-        diffuse: 2,
-        mapSamples: 12_000,
-        mapBrightness: 2,
-        baseColor: [0.8, 0.8, 0.8],
-        markerColor: [1, 1, 1],
-        glowColor: [0.5, 0.5, 0.5],
-        markers: [{ location: [22.535449017108995, 114.07374367580996], size: 0.1 }],
-        scale: 1.05,
-        // @ts-ignore onRender is missing in cobe v2 types
-        onRender: (state: Record<string, number>) => {
-          state.phi = 2.75 + r.get()
-          state.width = width * 2
-          state.height = width * 2
-        },
-      })
+    let globe: ReturnType<typeof createGlobe> | null = null
+    let animFrameId: number | null = null
+
+    globe = createGlobe(canvasRef.current, {
+      devicePixelRatio: 2,
+      width: width * 2,
+      height: width * 2,
+      phi: 0,
+      theta: 0,
+      dark: 1,
+      diffuse: 1.5,
+      mapSamples: 12_000,
+      mapBrightness: 12,
+      baseColor: [0.4, 0.4, 0.4],
+      markerColor: [1, 1, 1],
+      glowColor: [0.3, 0.6, 1],
+      markers: [{ location: [22.535449017108995, 114.07374367580996], size: 0.1 }],
+      scale: 1.05,
     })
 
-    return () => {
-      if (rafId !== null)
-        cancelAnimationFrame(rafId)
-      if (globe)
-        globe.destroy()
-      window.removeEventListener('resize', onResize)
+    // cobe v2 has no internal animation loop — we must drive rendering manually.
+    // This also ensures the globe re-renders after the internal texture (world map)
+    // finishes loading asynchronously.
+    const animate = () => {
+      globe?.update({
+        phi: 2.75 + r.get(),
+        width: width * 2,
+        height: width * 2,
+      })
+      animFrameId = requestAnimationFrame(animate)
     }
-  }, [r])
+    animFrameId = requestAnimationFrame(animate)
+
+    return () => {
+      if (animFrameId !== null)
+        cancelAnimationFrame(animFrameId)
+      globe?.destroy()
+    }
+  }, [])
 
   return (
     <div className="shadow-feature-card dark:shadow-feature-card-dark relative flex h-60 flex-col gap-6 overflow-hidden rounded-xl p-4 lg:p-6">

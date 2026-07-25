@@ -1,4 +1,5 @@
 'use client'
+import dynamic from 'next/dynamic'
 import Footer from '~/components/layouts/footer'
 import Header from '~/components/layouts/header'
 import MobileHeader from '~/components/layouts/mobile-header'
@@ -6,9 +7,10 @@ import MobileNavAside from '~/components/layouts/mobile-sidebar'
 import { DiaProvider } from '~/hooks/use-dia'
 import { NavProvider } from '~/hooks/use-nav'
 import GradientBackground from '../shared/gradient-background'
-import Dia from './internal/dia'
 import MobileDock from './mobile-dock'
 import SideDock from './side-dock'
+
+const Dia = dynamic(() => import('./internal/dia'), { ssr: false, loading: () => null })
 
 interface LayoutProps {
   children: React.ReactNode

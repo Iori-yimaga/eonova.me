@@ -8,9 +8,16 @@ import { useEffect, useState } from 'react'
 
 import { usePlaylistSongs } from '~/hooks/queries/music.query'
 import { useMusicPlay } from '~/hooks/use-music-play'
+
 import { cn } from '~/utils'
 
 const MusicPlayer = dynamic(() => import('./internal/music-player'), { ssr: false })
+
+// 仅在播放器可见时才加载音乐数据的包装组件
+function MusicPlayerWithSongs({ isVisible, onClose }: { isVisible: boolean, onClose: () => void }) {
+  const { data: playlistSongs } = usePlaylistSongs()
+  return <MusicPlayer isVisible={isVisible} onClose={onClose} songs={playlistSongs} />
+}
 
 interface SideDockProps {
   className?: string
@@ -22,9 +29,6 @@ const SideDock: React.FC<SideDockProps> = ({ className }) => {
   const [isVisible, setIsVisible] = useState<boolean>(false)
   const [isPlayerVisible, setPlayerIsVisible] = useState<boolean>(false)
   const pathname = usePathname()
-
-  // 音乐数据获取
-  const { data: playlistSongs } = usePlaylistSongs()
 
   useEffect(() => {
     const handleScroll = () => {
@@ -118,13 +122,14 @@ const SideDock: React.FC<SideDockProps> = ({ className }) => {
           )
         }
       </motion.ul>
-      <MusicPlayer
-        onClose={() => {
-          setPlayerIsVisible(false)
-        }}
-        isVisible={isPlayerVisible}
-        songs={playlistSongs}
-      />
+      {isPlayerVisible && (
+        <MusicPlayerWithSongs
+          onClose={() => {
+            setPlayerIsVisible(false)
+          }}
+          isVisible={isPlayerVisible}
+        />
+      )}
     </>
   )
 }

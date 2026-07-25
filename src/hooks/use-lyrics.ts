@@ -68,19 +68,45 @@ export function useLyrics(lrcUrl: string) {
 
   useEffect(() => {
     const fetchLyrics = async () => {
-      try {
-        if (lrcUrl) {
-          const response = await fetch(lrcUrl)
-          const lrcText = await response.text()
-          const parsedLyrics = parseLRC(lrcText)
-          setLyrics(parsedLyrics)
-          setCurrentLyricIndex(-1)
-        }
-      }
-      catch (error) {
-        console.error('歌词获取失败:', error)
+      if (!lrcUrl) {
         setLyrics([])
         setCurrentLyricIndex(-1)
+        return
+      }
+
+      // 如果 lrcUrl 是 LRC 文本（以 [ 开头），直接解析，无需网络请求
+      if (lrcUrl.startsWith('[')) {
+        const parsedLyrics = parseLRC(lrcUrl)
+        setLyrics(parsedLyrics)
+        setCurrentLyricIndex(-1)
+        return
+      }
+
+      // 降级：如果仍然是 URL，尝试 fetch
+      const controller = new AbortController()
+      const timeout = setTimeout(() => controller.abort(), 10_000)
+
+      try {
+        const response = await fetch(lrcUrl, { signal: controller.signal })
+        if (!response.ok)
+          throw new Error(`HTTP ${response.status}`)
+        const lrcText = await response.text()
+        const parsedLyrics = parseLRC(lrcText)
+        setLyrics(parsedLyrics)
+        setCurrentLyricIndex(-1)
+      }
+      catch (error) {
+        if (error instanceof DOMException && error.name === 'AbortError') {
+          console.warn('歌词请求超时，已跳过')
+        }
+        else {
+          console.error('歌词获取失败:', error)
+        }
+        setLyrics([])
+        setCurrentLyricIndex(-1)
+      }
+      finally {
+        clearTimeout(timeout)
       }
     }
     fetchLyrics()
