@@ -24,9 +24,9 @@ export const countView = publicProcedure
     const [content] = await context.db.select({ views: typeDB.views }).from(typeDB).where(eq(getContent(contentType), input.slug))
 
     if (!content) {
-      throw new ORPCError('NOT_FOUND', {
-        message: `${contentType} not found`,
-      })
+      const viewsData = { views: 0 }
+      await cache[contentType].views.set(viewsData, input.slug)
+      return viewsData
     }
 
     const viewsData = { views: content.views }

@@ -50,9 +50,13 @@ export const countLike = publicProcedure
     ])
 
     if (cachedLikes === null && !content) {
-      throw new ORPCError('NOT_FOUND', {
-        message: 'Content not found',
-      })
+      const likes = 0
+      const currentUserLikes = cachedUserLikes ?? user?.likeCount ?? 0
+      await cache[contentType].likes.set(likes, input.slug)
+      if (cachedUserLikes === null) {
+        await cache[contentType].userLikes.set(currentUserLikes, input.slug, anonKey)
+      }
+      return { likes, currentUserLikes }
     }
 
     const likes = cachedLikes ?? content!.likes
