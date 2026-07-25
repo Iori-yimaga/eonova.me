@@ -115,6 +115,8 @@ const config: NextConfig = {
   },
 
   images: {
+    loader: 'custom',
+    loaderFile: './src/utils/image-loader.ts',
     qualities: [75, 100],
     remotePatterns,
   },
