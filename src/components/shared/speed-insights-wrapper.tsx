@@ -7,6 +7,7 @@ const SpeedInsights = process.env.VERCEL
   : null
 
 export default function SpeedInsightsWrapper() {
-  if (!SpeedInsights) return null
+  if (!SpeedInsights)
+    return null
   return <SpeedInsights />
 }

@@ -19,6 +19,10 @@ yarn-debug.log*
 yarn-error.log*
 .pnpm-debug.log*
 
+# Service manager
+.logs/
+.pids/
+
 # typescript
 *.tsbuildinfo
 next-env.d.ts

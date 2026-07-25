@@ -10,6 +10,8 @@
     "node": ">=22"
   },
   "scripts": {
+    "start:all": "bash scripts/start.sh",
+    "svc": "bash scripts/svc.sh",
     "dev": "pnpm with-env next dev --turbo -p 3000",
     "dev:redis": "node scripts/redis-proxy.mjs",
     "dev:all": "node scripts/redis-proxy.mjs & pnpm dev",

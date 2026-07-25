@@ -16,7 +16,8 @@ const EMPTY_RESPONSE: z.infer<typeof NotPlayingSchema> = {
 
 // 将 HTTP 链接升级为 HTTPS，避免 Mixed Content 警告
 function ensureHttps(url: string | null): string | null {
-  if (!url) return null
+  if (!url)
+    return null
   return url.replace(/^http:\/\//, 'https://')
 }
 
@@ -88,7 +89,7 @@ const getStats = publicProcedure.output(NetEaseStatsOutputSchema).handler(async 
     return EMPTY_RESPONSE
   }
 
-  const topSongs = allData.slice(0, 10).map(item => {
+  const topSongs = allData.slice(0, 10).map((item) => {
     const song = item.song
     const artists = song.ar.map(a => a.name).join(', ')
     return {
@@ -130,7 +131,8 @@ const getStats = publicProcedure.output(NetEaseStatsOutputSchema).handler(async 
           }
         }
       }
-    } catch {
+    }
+    catch {
       // 静默失败，audioUrl 保持 null，回退到跳转链接
     }
   }

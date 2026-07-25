@@ -35,83 +35,89 @@ function NowPlaying() {
       <div className="min-w-0 flex-1 text-sm md:justify-start">
         {isPlaying
           ? (
-            <div className="flex items-center gap-2">
-              {hasAudio
-                ? (
-                  <div className="min-w-0 flex-1">
-                    <AudioPlayer
-                      src={data.audioUrl!}
-                      coverUrl={data.coverUrl}
-                      name={data.name}
-                      artist={data.artist}
-                    />
-                  </div>
-                )
-                : (
-                  <Link
-                    href={data.songUrl as unknown as UrlObject}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="min-w-0 truncate text-sm text-muted-foreground transition-colors hover:text-foreground"
-                  >
-                    {data.name} - {data.artist}
-                  </Link>
-                )}
+              <div className="flex items-center gap-2">
+                {hasAudio
+                  ? (
+                      <div className="min-w-0 flex-1">
+                        <AudioPlayer
+                          src={data.audioUrl!}
+                          coverUrl={data.coverUrl}
+                          name={data.name}
+                          artist={data.artist}
+                        />
+                      </div>
+                    )
+                  : (
+                      <Link
+                        href={data.songUrl as unknown as UrlObject}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="min-w-0 truncate text-sm text-muted-foreground transition-colors hover:text-foreground"
+                      >
+                        {data.name}
+                        {' '}
+                        -
+                        {data.artist}
+                      </Link>
+                    )}
 
-              {/* 歌单 Popover */}
-              {data.topSongs && data.topSongs.length > 1 && (
-                <Popover>
-                  <PopoverTrigger
-                    openOnHover
-                    delay={300}
-                    closeDelay={200}
-                    className="shrink-0 cursor-pointer rounded px-1 py-0.5 text-xs text-muted-foreground/50 transition-colors hover:bg-foreground/5 hover:text-muted-foreground"
-                  >
-                    ▾
-                  </PopoverTrigger>
-                  <PopoverContent side="top" align="end" sideOffset={8} className="w-80 p-0">
-                    <div className="px-3 py-2 text-xs font-medium text-muted-foreground border-b">
-                      最近常听 · Top {data.topSongs.length}
-                    </div>
-                    <div className="max-h-72 overflow-y-auto">
-                      {data.topSongs.map((song, index) => (
-                        <div
-                          key={song.id}
-                          className="flex items-center gap-3 px-3 py-2 transition-colors hover:bg-foreground/5"
-                        >
-                          <span className="w-5 text-center text-xs text-muted-foreground">
-                            {index + 1}
-                          </span>
-                          {song.coverUrl && (
-                            <img
-                              src={song.coverUrl}
-                              alt={song.name}
-                              className="h-8 w-8 rounded object-cover"
-                            />
-                          )}
-                          <div className="min-w-0 flex-1">
-                            <div className="truncate text-sm">{song.name}</div>
-                            <div className="truncate text-xs text-muted-foreground">{song.artist}</div>
+                {/* 歌单 Popover */}
+                {data.topSongs && data.topSongs.length > 1 && (
+                  <Popover>
+                    <PopoverTrigger
+                      openOnHover
+                      delay={300}
+                      closeDelay={200}
+                      className="shrink-0 cursor-pointer rounded px-1 py-0.5 text-xs text-muted-foreground/50 transition-colors hover:bg-foreground/5 hover:text-muted-foreground"
+                    >
+                      ▾
+                    </PopoverTrigger>
+                    <PopoverContent side="top" align="end" sideOffset={8} className="w-80 p-0">
+                      <div className="px-3 py-2 text-xs font-medium text-muted-foreground border-b">
+                        最近常听 · Top
+                        {' '}
+                        {data.topSongs.length}
+                      </div>
+                      <div className="max-h-72 overflow-y-auto">
+                        {data.topSongs.map((song, index) => (
+                          <div
+                            key={song.id}
+                            className="flex items-center gap-3 px-3 py-2 transition-colors hover:bg-foreground/5"
+                          >
+                            <span className="w-5 text-center text-xs text-muted-foreground">
+                              {index + 1}
+                            </span>
+                            {song.coverUrl && (
+                              <img
+                                src={song.coverUrl}
+                                alt={song.name}
+                                className="h-8 w-8 rounded object-cover"
+                              />
+                            )}
+                            <div className="min-w-0 flex-1">
+                              <div className="truncate text-sm">{song.name}</div>
+                              <div className="truncate text-xs text-muted-foreground">{song.artist}</div>
+                            </div>
+                            <span className="shrink-0 text-xs text-muted-foreground">
+                              {song.playCount}
+                              次
+                            </span>
                           </div>
-                          <span className="shrink-0 text-xs text-muted-foreground">
-                            {song.playCount}次
-                          </span>
-                        </div>
-                      ))}
-                    </div>
-                  </PopoverContent>
-                </Popover>
-              )}
-            </div>
-          )
+                        ))}
+                      </div>
+                    </PopoverContent>
+                  </Popover>
+                )}
+              </div>
+            )
           : (
-            <ShinyText
-              text={isLoading ? '载入中 ...' : isError ? '无法获取网易云资料' : '未在收听 - 网易云音乐'}
-              disabled
-              speed={3}
-              className="custom-class"
-            />
-          )}
+              <ShinyText
+                text={isLoading ? '载入中 ...' : isError ? '无法获取网易云资料' : '未在收听 - 网易云音乐'}
+                disabled
+                speed={3}
+                className="custom-class"
+              />
+            )}
       </div>
     </div>
   )
