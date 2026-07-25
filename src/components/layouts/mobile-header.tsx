@@ -69,7 +69,7 @@ function MobileHeader() {
             <Image
               className={theme === 'dark' ? '' : 'hidden'}
               src="/images/logo-text-white.png"
-              alt="花流尘"
+              alt="慕乐"
               width={80}
               height={45}
               style={{ width: 'auto', height: 'auto' }}
@@ -78,7 +78,7 @@ function MobileHeader() {
             <Image
               className={theme === 'dark' ? 'hidden' : ''}
               src="/images/logo-text-black.png"
-              alt="花流尘"
+              alt="慕乐"
               width={80}
               height={45}
               style={{ width: 'auto', height: 'auto' }}
